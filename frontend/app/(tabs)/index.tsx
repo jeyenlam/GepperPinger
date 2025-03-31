@@ -1,16 +1,16 @@
-import { Image, StyleSheet, Platform, View, Text} from 'react-native';
-
+import { Image, StyleSheet, View, Text} from 'react-native';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useState, useEffect } from 'react';
 
+
 export default function HomeScreen() {
   const [image, setImage] = useState<string | null>(null);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://192.168.1.200:8000/video_feed');
+    const ws = new WebSocket(`ws://${process.env.EXPO_PUBLIC_RASPBERRY_PI_IP_ADDRESS}:8000/video_feed`);
 
     ws.onopen = () => {
       console.log('WebSocket connection established');
@@ -48,6 +48,8 @@ export default function HomeScreen() {
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
+
+      <Text>{process.env.EXPO_PUBLIC_RASPBERRY_PI_IP_ADDRESS} hi</Text>
 
       <View>
         {image ? (
