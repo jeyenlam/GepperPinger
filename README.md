@@ -30,3 +30,6 @@
 - Backend returns predictions (dog identity and activity).  
 - App displays predictions in real-time for the user.  
 
+## Architecture  
+![GepperPinger (1)](https://github.com/user-attachments/assets/944a2144-2464-4306-8a70-bff5421663c3)
+
