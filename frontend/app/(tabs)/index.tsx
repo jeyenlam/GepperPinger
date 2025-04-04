@@ -3,65 +3,22 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { useState, useEffect } from 'react';
 
 
 export default function HomeScreen() {
-  const [image, setImage] = useState<string | null>(null);
-
-  useEffect(() => {
-    const ws = new WebSocket(`ws://${process.env.EXPO_PUBLIC_RASPBERRY_PI_IP_ADDRESS}:8000/video_feed`);
-
-    ws.onopen = () => {
-      console.log('WebSocket connection established');
-    };
-
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      const base64Image = `data:image/jpeg;base64,${data.image}`;
-      setImage(base64Image);
-    };
-
-    ws.onerror = (error) => {
-      console.log('WebSocket Error:', error);
-    };
-
-    ws.onclose = () => {
-      console.log('WebSocket connection closed');
-    };
-
-    return () => {
-      ws.close();
-    };
-  }, []);
 
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/gepperpinger-bg.png')}
+          style={styles.logo}
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-
-      <Text>{process.env.EXPO_PUBLIC_RASPBERRY_PI_IP_ADDRESS} hi</Text>
-
-      <View>
-        {image ? (
-          <Image
-            source={{ uri: image }}
-            style={{ width: 1280, height: 720 }} // Adjust size as needed
-          />
-        ) : (
-          <Text>Waiting for video...</Text>
-        )}
-      </View>
-      
+        <ThemedText type="title">Activity</ThemedText>
+      </ThemedView>      
     </ParallaxScrollView>
   );
 }
@@ -76,11 +33,10 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+  logo: {
+    height: 400,
+    width: 400,
+    top: -20,
     position: 'absolute',
   },
 });
