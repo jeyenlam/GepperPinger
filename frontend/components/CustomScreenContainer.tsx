@@ -20,11 +20,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     padding: 16,
+    height: '100%',
+    overflow: 'scroll',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     paddingTop: 60,
+    paddingBottom: 16,
   },
 });
 

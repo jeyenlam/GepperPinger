@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
+import CustomScreenContainer from '@/components/CustomScreenContainer';
 
 export default function Video() {
   const [image, setImage] = useState<string | null>(null);
@@ -31,17 +32,17 @@ export default function Video() {
   }, []);
 
   return (
-    <View style={styles.view}>
-      <Text className='font-medium'>Live Video Feed</Text> 
+    <CustomScreenContainer title='Monitor'>
       {image ? (
         <Image
           source={{ uri: image }}
-          style={styles.video}
+          className='w-full h-1/2'
         />
       ) : (
         <Text>Waiting for video...</Text>
       )}
-    </View>
+
+    </CustomScreenContainer>
   );
 }
 
