@@ -1,42 +1,47 @@
+import CustomScreenContainer from '@/components/CustomScreenContainer';
+import { useState } from 'react';
 import { Image, StyleSheet, View, Text} from 'react-native';
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
+import { activities } from '@/constants/Data';
 
 export default function HomeScreen() {
+  const [GingerActivity, setGingerActivity] = useState('Sleeping');
+  const [PepperActivity, setPepperActivity] = useState('Sleeping');
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/gepperpinger-bg.png')}
-          style={styles.logo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Activity</ThemedText>
-      </ThemedView>      
-    </ParallaxScrollView>
+    <CustomScreenContainer title='Home'>
+      <View>  
+        <Text>Ginger's Activity</Text>
+        {
+          activities.map((activity, index) => 
+            GingerActivity === activity.title && 
+            <Image 
+              source={typeof activity.imageUrl === 'string' ? { uri: activity.imageUrl } : activity.imageUrl}
+              key={index}
+              style={
+                { 
+                  width: 100,
+                  height: 100 
+                }} 
+            /> )
+        }
+      </View>
+      <View>
+        <Text>Pepper's Activity</Text>
+        {
+          activities.map((activity, index) => 
+            GingerActivity === activity.title && 
+            <Image 
+              source={typeof activity.imageUrl === 'string' ? { uri: activity.imageUrl } : activity.imageUrl}
+              key={index}
+              style={
+                { 
+                  width: 100,
+                  height: 100 
+                }} 
+            /> )
+        }
+      </View>
+
+    </CustomScreenContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  logo: {
-    height: 400,
-    width: 400,
-    top: -20,
-    position: 'absolute',
-  },
-});
