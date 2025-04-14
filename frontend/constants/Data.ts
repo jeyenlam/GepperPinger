@@ -9,7 +9,7 @@ export const activities: Activity[] = [
     imageUrl: require('../assets/images/activities/sleeping.png')
   },
   {
-    title: 'Chilling',
-    imageUrl: require('../assets/images/activities/sleeping.png')
+    title: 'Playing',
+    imageUrl: require('../assets/images/activities/playing.png')
   }
 ]

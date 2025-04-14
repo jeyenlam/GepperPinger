@@ -1,9 +1,8 @@
 import CustomScreenContainer from '@/components/CustomScreenContainer';
-import { useState } from 'react';
-import { Image, View, Text} from 'react-native';
-import { activities } from '@/constants/Data';
-import { UserPen } from 'lucide-react-native';
+import { Image, View, Text, ImageBackground} from 'react-native';
+import { Bone, Dog, UserPen } from 'lucide-react-native';
 import "@/global.css"
+import { Collapsible } from '@/components/Collapsible';
 
 interface Dog {
   name: string;
@@ -11,9 +10,9 @@ interface Dog {
   breed: string;
   activity: string;
   lastSeenAt: Date;
+  weight: number;
   imageUrl: string;
 }
-
 
 export default function HomeScreen() {
   const myDogs : Dog[] = [
@@ -21,52 +20,86 @@ export default function HomeScreen() {
       name: 'Ginger',
       age: 1,
       breed: 'Shih Tzu Mix',
+      weight: 13,
       activity: 'Sleeping',
       lastSeenAt: new Date(),
-      imageUrl: '/',
+      imageUrl: require('@/assets/images/ginger.jpg'),
     }, 
     {
       name: 'Pepper',
       age: 1,
       breed: 'Shih Tzu Mix',
-      activity: 'Sleeping',
+      weight: 11,
+      activity: 'Playing',
       lastSeenAt: new Date(),
-      imageUrl: '/',
+      imageUrl: require('@/assets/images/pepper.jpg'),
     }
   ]
 
+
   return (
     <CustomScreenContainer title='Home'>
-      <Text className='-top-8 self-end'>
+      <Text className='self-end'>
         <UserPen color="black" size={25} />
       </Text>
-      {myDogs.map((dog, index) => (
-        <View key={index} className='flex flex-col items-center justify-center'>
-          <Image source={typeof dog.imageUrl === 'string' ? { uri: dog.imageUrl } : dog.imageUrl} className='w-1/4 h-1/4'/>
-          
-          <View className='ml-2'>
-            <Text className='text-lg font-bold'>{dog.name}</Text>
-            <Text>Age: {dog.age}</Text>
-            <Text>Breed: {dog.breed}</Text>
-            <Text>Last seen: {dog.lastSeenAt.toLocaleTimeString()}</Text>
-          </View>
-          <View className='flex justify-center items-center'>  
-            <View className='flex flex-row items-center'>
-              <Text className='relative text-5xl text-green-600 z-10'>•</Text>
-              <Text className='absolute animate-ping text-[5rem] text-green-600 delay-1000 duration-1000 z-0'>•</Text>
-              <Text className=''>Ginger is {dog.activity} 💤</Text>
-            </View>
-        
-            {
-              activities.map((activity, index) => 
-                dog.activity === activity.title && 
-                <Image key={index} source={typeof activity.imageUrl === 'string' ? { uri: activity.imageUrl } : activity.imageUrl}/> )
-            }
-          </View>
-          
-        </View>
-      ))}
 
+      <View className='mb-10 flex flex-row items-center gap-2'>
+        {myDogs.map((dog, index) => (
+          <View key={index}>
+            <Image
+              source={
+                typeof dog.imageUrl === 'string'
+                  ? { uri: dog.imageUrl }
+                  : dog.imageUrl
+              }
+              className='w-20 h-20 rounded-full border-4 border-[#E6B619]'
+            />
+            <View className='ml-2'>
+              <Text className='text-lg font-bold'>{dog.name}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+
+      <Collapsible title='Profiles'>
+        {myDogs.map((dog, index) => (
+          <View key={index}>
+            <View className='p-2 bg-[#E6B619]/80 rounded-lg mb-2'>
+              <Text className='text-lg font-bold'>{dog.name}</Text>
+              <Text>{dog.age} year old</Text>
+              <Text>{dog.breed}</Text>
+              <Text>{dog.weight} lbs</Text>
+              <Text>Last seen: {dog.lastSeenAt.toLocaleTimeString()}</Text>
+              <Bone color={'black'} size={50} />
+            </View>
+          </View>
+        ))}
+        <ImageBackground
+          source={require('@/assets/images/ginger.jpg')}
+          className="w-full h-32 bg-tra justify-center items-center"
+          resizeMode="cover"
+          imageStyle={{ opacity: 0.5 }} // directly reduce image opacity
+
+        >
+
+          <Text className="text-white text-xl font-bold">Overlay Text</Text>
+        </ImageBackground>
+      </Collapsible>
+
+      <Collapsible title='Appoinments'>
+        {myDogs.map((dog, index) => (
+          <View key={index}>
+            <View className='p-2 bg-[#E6B619]/80 rounded-lg mb-2'>
+              <Text className='text-lg font-bold'>{dog.name}</Text>
+              <Text>{dog.age} year old</Text>
+              <Text>{dog.breed}</Text>
+              <Text>{dog.weight} lbs</Text>
+              <Text>Last seen: {dog.lastSeenAt.toLocaleTimeString()}</Text>
+              <Bone color={'black'} size={50} />
+            </View>
+          </View>
+        ))}
+      </Collapsible>
     </CustomScreenContainer>
   );
 }
